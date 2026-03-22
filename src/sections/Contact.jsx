@@ -21,13 +21,11 @@ const contactInfo = [
     icon: Phone,
     label: "Phone",
     value: "+91 8766397667",
-    href: "tel:+918766397667",
   },
   {
     icon: MapPin,
     label: "Location",
     value: "Delhi, India",
-    href: "#",
   },
 ];
 
@@ -226,23 +224,32 @@ export const Contact = () => {
                 Contact Information
               </h3>
               <div className="space-y-4">
-                {contactInfo.map((item, i) => (
-                  <a
-                    key={i}
-                    href={item.href}
-                    className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface transition-colors group"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <item.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <div className="text-sm text-muted-foreground">
-                        {item.label}
+                {contactInfo.map((item, i) => {
+                  const Wrapper = item.href ? "a" : "div";
+                  return (
+                    <Wrapper
+                      key={i}
+                      href={item.href}
+                      className={`flex items-center gap-4 p-4 rounded-xl transition-colors ${
+                        item.href ? "hover:bg-surface group cursor-pointer" : ""
+                      }`}
+                    >
+                      <div
+                        className={`w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center transition-colors ${
+                          item.href ? "group-hover:bg-primary/20" : ""
+                        }`}
+                      >
+                        <item.icon className="w-5 h-5 text-primary" />
                       </div>
-                      <div className="font-medium">{item.value}</div>
-                    </div>
-                  </a>
-                ))}
+                      <div>
+                        <div className="text-sm text-muted-foreground">
+                          {item.label}
+                        </div>
+                        <div className="font-medium">{item.value}</div>
+                      </div>
+                    </Wrapper>
+                  );
+                })}
               </div>
             </div>
 
